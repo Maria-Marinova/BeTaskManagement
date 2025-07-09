@@ -8,48 +8,100 @@
         xmlns:mod="clr-namespace:BeTaskManagement.Models.Enums"
         mc:Ignorable="d"
         Title="BeTaskView" Height="450" Width="800">
-    <Grid Margin="10">
+    <Grid Margin="10" Background="{StaticResource BackgrountDarkerGrey}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Vertical" Margin="0,0,0,10">
-            <TextBlock Text="Name"/>
-            <TextBox Text="{Binding Task.Name}" Width="400"/>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
 
-            <TextBlock Text="Description"/>
-            <TextBox Text="{Binding Task.Description}" Width="400"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Required By"/>
-            <DatePicker SelectedDate="{Binding Task.RequiredByDate}" Width="200"/>
+                <TextBlock Grid.Column="0" Text="Name" Style="{StaticResource Title}" FontSize="14" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1"  Text="{Binding Task.Name}" VerticalAlignment="Center"/>
+            </Grid>
 
-            <!--<TextBlock Text="Status"/>
-            <ComboBox ItemsSource="{Binding StatusList}" SelectedItem="{Binding Task.Status}" Width="200"/>-->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Status"/>
-            <ComboBox SelectedItem="{Binding Task.Status}" 
-                      ItemsSource="{Binding Source={localHelpers:EnumHelper {x:Type mod:BeTaskStatus}}}" 
-                      Width="200"/>
+                <TextBlock Grid.Column="0" Text="Description" Style="{StaticResource Title}" FontSize="14" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1"  Text="{Binding Task.Description}" VerticalAlignment="Center"/>
+            </Grid>
 
-            <!--<TextBlock Text="Type"/>
-            <ComboBox ItemsSource="{Binding TypeList}" SelectedItem="{Binding Task.Type}" Width="200"/>-->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Type"/>
-            <ComboBox SelectedItem="{Binding Task.Type}" 
-                      ItemsSource="{Binding Source={localHelpers:EnumHelper {x:Type mod:BeTaskType}}}" 
-                      Width="200"/>
+                <TextBlock Grid.Column="0" Text="Required By" Style="{StaticResource Title}" FontSize="14" VerticalAlignment="Center"/>
+                <DatePicker Grid.Column="1" SelectedDate="{Binding Task.DueDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            VerticalAlignment="Center" MaxHeight="30" MaxWidth="300" HorizontalAlignment="Left"/>
+            </Grid>
 
-            <TextBlock Text="Assigned To"/>
-            <ComboBox ItemsSource="{Binding Users}"
-                      SelectedValue="{Binding Task.AssignedToUserId, Mode=TwoWay}"
-                      SelectedValuePath="UserId"
-                      DisplayMemberPath="FullName"
-                      Width="200"/>
-        </StackPanel>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-        <GroupBox Header="Comments" Grid.Row="1">
+                <TextBlock Grid.Column="0" Text="Status" Style="{StaticResource Title}"/>
+                <ComboBox Grid.Column="1" SelectedItem="{Binding Task.Status}" 
+                          ItemsSource="{Binding Source={localHelpers:EnumHelper {x:Type mod:BeTaskStatus}}}"
+                          VerticalAlignment="Center" 
+                          HorizontalAlignment="Left"
+                          Width="200"/>
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Type" Style="{StaticResource Title}" FontSize="14" VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="1" SelectedItem="{Binding Task.Type}" 
+                          ItemsSource="{Binding Source={localHelpers:EnumHelper {x:Type mod:BeTaskType}}}"
+                          VerticalAlignment="Center" 
+                          HorizontalAlignment="Left"
+                          Width="200"/>
+            </Grid>
+
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Assigned To" Style="{StaticResource Title}" FontSize="14" VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Users}"
+                          SelectedValue="{Binding Task.AssignedToUserId, Mode=TwoWay}"
+                          SelectedValuePath="UserId"
+                          DisplayMemberPath="FullName"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Left"
+                          Width="200"/>
+            </Grid>
+        </Grid>
+
+
+        <!--<GroupBox Header="Comments" Grid.Row="1">
             <Grid>
                 <DataGrid ItemsSource="{Binding Comments}" SelectedItem="{Binding SelectedComment}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
@@ -63,8 +115,8 @@
                     <Button Content="Delete" Command="{Binding DeleteCommentCommand}" Margin="5"/>
                 </StackPanel>
             </Grid>
-        </GroupBox>
+        </GroupBox>-->
 
-        <Button Content="Save Task" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding SaveTaskCommand}" Margin="5"/>
+        <Button Content="Save Task" Grid.Row="2" Style="{StaticResource SquareButton}" HorizontalAlignment="Right" Command="{Binding SaveTaskCommand}" Margin="5"/>
     </Grid>
 </Window>

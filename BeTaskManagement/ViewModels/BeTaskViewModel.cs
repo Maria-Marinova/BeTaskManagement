@@ -79,6 +79,7 @@ namespace BeTaskManagement.ViewModels
                     .OrderBy(c => c.ReminderDate)
                     .Select(c => c.ReminderDate)
                     .FirstOrDefault();
+
                 _dbContext.BeTasks.Add(Task);
             }
             else

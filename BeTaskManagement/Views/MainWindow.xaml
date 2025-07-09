@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BeTaskManagement"
         xmlns:views="clr-namespace:BeTaskManagement.Views"
+        xmlns:helpers="clr-namespace:BeTaskManagement.Helpers"
         mc:Ignorable="d"
         Title="MainWindow" Height="840" Width="1280"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
@@ -26,50 +30,17 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            
-            <!-- Task List Header-->
-            <Label Style="{StaticResource Heading1}" 
-                   Content="Tasks"
-                   IsHitTestVisible="False"/>
-            
-            <!--Add New Task Button-->
-            <Button Style="{StaticResource RoundedButton}"
-                    Command="{Binding OpenBeTaskViewCommand}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Height="40"
-                    Width="40"
-                    Margin="0 0 20 0">
-                <Viewbox>
-                    <Path Data="{StaticResource PlusIcon}" 
-                          Fill="{StaticResource OnAccent}"
-                          Stretch="Uniform"
-                          VerticalAlignment="Center"
-                          HorizontalAlignment="Center"
-                          Margin="2"/>
-                </Viewbox>
-            </Button>
 
-            <TextBox x:Name="SearchTextBox"
-                     Grid.Row="1"
-                     Style="{StaticResource SearchBar}"
-                     Margin="20 0"/>
-            <Label Grid.Row="1"
-                   IsHitTestVisible="False" 
-                   Content="Search Tasks..."
-                   Foreground="{StaticResource InformationalText}"
-                   FontSize="16"
-                   Visibility="{Binding Text.IsEmpty, ElementName=SearchTextBox, Converter={StaticResource BooleanToVisibilityConverter}}"
-                   VerticalAlignment="Center"
-                   Margin="25 0 0 0"/>
-            <Button Grid.Row="1"
+
+            <Button Grid.Row="0"
                     Style="{StaticResource SquareButton}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Padding="5"
                     Margin="7 7 30 7"
+                    ToolTip="Search Comments"
                     Command="{Binding OpenSearchPageCommand}">
-                <Viewbox>
+                <Viewbox  Width="25" Height="25">
                     <Path Data="{StaticResource SearchIcon}" 
                       Fill="{StaticResource OnAccent}"
                       Stretch="Uniform"
@@ -78,7 +49,7 @@
                       Margin="2"/>
                 </Viewbox>
             </Button>
-            <Button Grid.Row="1"
+            <Button Grid.Row="0"
                     Command="{Binding OpenDashboardCommand}"
                     Style="{StaticResource SquareButton}"
                     HorizontalAlignment="Left"
@@ -86,6 +57,32 @@
                     Padding="5"
                     Margin="7 7 70 7">
                 <TextBlock Text="📊" FontSize="16"/>
+            </Button>
+
+            <!-- Task List Header-->
+            <Label Grid.Row="1"
+                   Style="{StaticResource Heading1}" 
+                   Content="Tasks"
+                   IsHitTestVisible="False"/>
+            
+            <!--Add New Task Button-->
+            <Button Grid.Row="1"
+                    Style="{StaticResource RoundedButton}"
+                    Command="{Binding OpenBeTaskViewCommand}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Height="40"
+                    Width="40"
+                    Margin="0 0 20 0"
+                    ToolTip="Add Task">
+                <Viewbox>
+                    <Path Data="{StaticResource PlusIcon}" 
+                          Fill="{StaticResource OnAccent}"
+                          Stretch="Uniform"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Margin="2"/>
+                </Viewbox>
             </Button>
 
             <!--Task List-->
@@ -100,7 +97,8 @@
         <!-- Task Details Panel-->
         <Rectangle Fill="{StaticResource BackgrountLighterGrey}" 
                    Grid.Column="2"/>
-        <Grid Grid.Column="2"  DataContext="{Binding SelectedTask}">
+        <TextBlock Text="{Binding IsTaskSelected}" />
+        <Grid Grid.Column="2"  DataContext="{Binding SelectedTask, Mode=TwoWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="250"/>
                 <RowDefinition Height="5*"/>
