@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="BeTaskManagement.Views.BeTaskItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BeTaskManagement.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Style="{StaticResource Title}" Text="{Binding Name}" />
+        <TextBlock Grid.Row="1" Text="{Binding Description}" />
+        <TextBlock Grid.Row="2" Text="{Binding AssignedTo.FullName}" />
+        <!--<Border BorderBrush="LightGray" BorderThickness="1" Padding="8" Margin="4">
+            <StackPanel>
+                <TextBlock Text="{Binding Description}" FontWeight="Bold" />
+                <TextBlock Text="{Binding AssignedTo.FullName}" />
+                <TextBlock Text="{Binding Status}" />
+                <TextBlock Text="{Binding Type}" />
+            </StackPanel>
+        </Border>-->
+    </Grid>
+</UserControl>

@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Theme colours -->
+    <SolidColorBrush x:Key="MainThemeColor" Color="#FF433C71"/>
+    <SolidColorBrush x:Key="SecondaryThemeColor" Color="#FF0D5871"/>
+    <SolidColorBrush x:Key="ThirdThemeColor" Color="#FF03222D"/>
+    <SolidColorBrush x:Key="BackgrountLighterGrey" Color="#FFFDFDFD"/>
+    <SolidColorBrush x:Key="BackgrountDarkerGrey" Color="#FFE2E2E2"/>
+    <SolidColorBrush x:Key="OnAccent" Color="White"/>
+    <SolidColorBrush x:Key="OnAccentDark" Color="#FFA4A4A4"/>
+    <SolidColorBrush x:Key="BorderColor" Color="Aqua"/>
+    <SolidColorBrush x:Key="DefaultText" Color="Black"/>
+    <SolidColorBrush x:Key="InformationalText" Color="#FF868484"/>
+
+    <!-- Task Types Badge Colours-->
+    <SolidColorBrush x:Key="TypeBadgeColor" Color="#FFC169E4"/>
+    
+    <!-- Task Status Colours-->
+    <SolidColorBrush x:Key="ToDoColor" Color="#FFAEE1E2"/>
+    <SolidColorBrush x:Key="InProgressColor" Color="#FF153FC1"/>
+    <SolidColorBrush x:Key="CompletedColor" Color="#FF5FB327"/>
+    <SolidColorBrush x:Key="BlockedColor" Color="#FFE01010"/>
+    <SolidColorBrush x:Key="OnHoldColor" Color="#FFE08908"/>
+</ResourceDictionary>
