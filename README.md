@@ -25,3 +25,11 @@ How to use the app:
 7. On the right panel you see information about the selected task and list with its comments.
 8. For each comment you have a button to: see its history of changes, edit teh comment, delete the comment
 9. Next to the Title "Comments" you have a button "Add Comment" where you can create new comments for the task
+
+Known issues:
+1. When creating a comment the page does not reload, so you have to move to another task and back to see the new comment. I added even + listener, but there was sime issue and I did not have enough time to fix it.
+2. Comment create takes more time than it should (at least in my environment)
+3. Comment does not update the task NextAction date. I did not have enough time to add the proper implementation. What I was planning was to add check (when saving a comment) if the NextAction date is not null and NextActionDate is null or is later than NextAction date and to invoce an update only on the property NextActionDate for the task.
+4. When no task is selected I should hide the Task Detail section (I have a helper converter, but there was an issue and I did not have the time to track it properly).
+5. Dashboard style is very bad. Need butification (a lot)
+6. Code needs refactoring - there is a lot of code that is not needed and can be removed. There are a few methods that are repetative and can be done in one generic approach. There are some unnecessary "reloads" that can be optimized. I did not have enough time to fix that.
