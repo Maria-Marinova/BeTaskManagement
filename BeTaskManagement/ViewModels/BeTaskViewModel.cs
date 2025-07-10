@@ -1,5 +1,6 @@
 ﻿using BeTaskManagement.Base;
 using BeTaskManagement.Data;
+using BeTaskManagement.Events;
 using BeTaskManagement.Helpers;
 using BeTaskManagement.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace BeTaskManagement.ViewModels
@@ -68,7 +70,7 @@ namespace BeTaskManagement.ViewModels
             OnPropertyChanged(nameof(Task));
         }
 
-        private void SaveTask()
+        private async void SaveTask()
         {
             if (Task.BeTaskId == 0)
             {
@@ -103,7 +105,9 @@ namespace BeTaskManagement.ViewModels
                 }
             }
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+            AppEventAggregator.RaiseTaskSaved();
+            CloseWindow();
         }
 
         private void AddComment()
@@ -127,6 +131,19 @@ namespace BeTaskManagement.ViewModels
             var userList = _dbContext.Users.ToList();
             Users = new ObservableCollection<User>(userList);
             OnPropertyChanged(nameof(Users));
+        }
+
+        private void CloseWindow()
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.DataContext == this)
+                {
+                    window.DialogResult = true;
+                    window.Close();
+                    break;
+                }
+            }
         }
     }
 }

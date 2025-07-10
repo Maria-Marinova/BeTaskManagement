@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows;
 using BeTaskManagement.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using BeTaskManagement.Events;
 
 namespace BeTaskManagement.ViewModels
 {
@@ -77,7 +78,7 @@ namespace BeTaskManagement.ViewModels
             }
 
             _dbContext.SaveChanges();
-            
+            //AppEventAggregator.RaiseCommentSaved();
             CloseWindow();
         }
 

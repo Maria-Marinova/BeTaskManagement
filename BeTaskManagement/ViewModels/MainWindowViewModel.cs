@@ -1,5 +1,6 @@
 ﻿using BeTaskManagement.Base;
 using BeTaskManagement.Data;
+using BeTaskManagement.Events;
 using BeTaskManagement.Helpers;
 using BeTaskManagement.Models;
 using BeTaskManagement.Views;
@@ -26,7 +27,8 @@ namespace BeTaskManagement.ViewModels
         public MainWindowViewModel(AppDbContext db)
         {
             _dbContext = db;
-            //taskListViewModel = new BeTaskListViewModel(_dbContext);
+            AppEventAggregator.TaskSaved += OnTaskSaved;
+            //AppEventAggregator.CommentSaved += OnCommentSaved;
             LoadTasks();
         }
 
@@ -58,6 +60,17 @@ namespace BeTaskManagement.ViewModels
             taskView.ShowDialog();
         }
 
+        //private void LoadTasks()
+        //{
+        //    var taskList = _dbContext.BeTasks
+        //        .Include(t => t.AssignedTo)
+        //        .Include(t => t.Comments)
+        //        .ThenInclude(c => c.History)
+        //        .ToList();
+        //    Tasks = new ObservableCollection<BeTask>(taskList);
+        //    OnPropertyChanged(nameof(Tasks));
+        //}
+
         private void LoadTasks()
         {
             var taskList = _dbContext.BeTasks
@@ -65,7 +78,16 @@ namespace BeTaskManagement.ViewModels
                 .Include(t => t.Comments)
                 .ThenInclude(c => c.History)
                 .ToList();
-            Tasks = new ObservableCollection<BeTask>(taskList);
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Tasks.Clear();
+                foreach (var task in taskList)
+                {
+                    Tasks.Add(task);
+                }
+            });
+
             OnPropertyChanged(nameof(Tasks));
         }
 
@@ -154,6 +176,16 @@ namespace BeTaskManagement.ViewModels
                 Owner = Application.Current.MainWindow
             };
             window.ShowDialog();
+        }
+
+        private void OnTaskSaved()
+        {
+            LoadTasks();
+        }
+
+        private void OnCommentSaved()
+        {
+            LoadCommentsForSelectedTask();
         }
     }
 }

@@ -3,40 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:localHelpers="clr-namespace:BeTaskManagement.Helpers"
         xmlns:mod="clr-namespace:BeTaskManagement.Models.Enums"
-        Title="Comment" Height="300" Width="400"
+        Title="Comment" Height="350" Width="400"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
-    <Grid Margin="20">
+    <Grid Margin="20"  Background="{StaticResource BackgrountDarkerGrey}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
 
-        <!-- Comment Text -->
-        <TextBlock Text="Comment:" FontWeight="Bold"/>
-        <TextBox Grid.Row="1" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" 
-                 AcceptsReturn="True" Height="100" VerticalScrollBarVisibility="Auto"/>
-        
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 0">
-            <TextBlock Text="Required By" FontWeight="Bold"/>
-            <DatePicker SelectedDate="{Binding ReminderDate}" Width="200" Margin="10 0 0 10"/>
-        </StackPanel>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Comment Text -->
+                <TextBlock Grid.Column="0" Text="Comment:" Style="{StaticResource Title}"  FontSize="10" VerticalAlignment="Center" Padding="5"/>
+                <TextBox Grid.Column="1" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" 
+                        AcceptsReturn="True" Height="60" VerticalScrollBarVisibility="Auto" VerticalAlignment="Center"/>
 
-        <!-- Comment Type -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
-            <TextBlock Text="Type:" FontWeight="Bold" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding Source={localHelpers:EnumHelper {x:Type mod:CommentType}}}" 
-                      SelectedItem="{Binding SelectedCommentType}" 
-                      Margin="10 0"
-                      Width="150"/>
-        </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Comment Reminder -->
+                <TextBlock Grid.Column="0" Text="Reminder Date:" Style="{StaticResource Title}"  FontSize="10" VerticalAlignment="Center" Padding="5"/>
+                <DatePicker Grid.Column="1"  SelectedDate="{Binding ReminderDate}" Width="200" Margin="10 0 0 10" VerticalAlignment="Center"/>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Comment Type -->
+                <TextBlock Grid.Column="0" Text="Type:"  Style="{StaticResource Title}"  FontSize="10" VerticalAlignment="Center" Padding="5"/>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Source={localHelpers:EnumHelper {x:Type mod:CommentType}}}" 
+                          SelectedItem="{Binding SelectedCommentType}"
+                          Height="30"
+                          Margin="10 0"
+                          Width="150"/>
+            </Grid>
+        </Grid>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button Content="Save" Width="80" Margin="0 0 10 0" Command="{Binding SaveCommand}"/>
+        <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+            <Button Content="Save" Style="{StaticResource SquareButton}" Width="80" Margin="10 0 5 5" Command="{Binding SaveCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
