@@ -47,8 +47,9 @@
                 </Grid.ColumnDefinitions>
                 <!-- Comment Type -->
                 <TextBlock Grid.Column="0" Text="Type:"  Style="{StaticResource Title}"  FontSize="10" VerticalAlignment="Center" Padding="5"/>
-                <ComboBox Grid.Column="1" ItemsSource="{Binding Source={localHelpers:EnumHelper {x:Type mod:CommentType}}}" 
-                          SelectedItem="{Binding SelectedCommentType}"
+                <ComboBox Grid.Column="1"  
+                          SelectedItem="{Binding CommentType}"
+                          ItemsSource="{Binding Source={localHelpers:EnumHelper {x:Type mod:CommentType}}}"
                           Height="30"
                           Margin="10 0"
                           Width="150"/>
