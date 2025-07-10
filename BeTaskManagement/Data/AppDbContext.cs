@@ -61,6 +61,43 @@ namespace BeTaskManagement.Data
                 .WithMany(c => c.History)
                 .HasForeignKey(ch => ch.CommentId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            //Adding a few mockup data entries
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    UserId = 1,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    EmailAddress = "johndoe@test.test"
+                }, 
+                new User
+                {
+                    UserId = 2,
+                    FirstName = "Maria",
+                    LastName = "Marinova",
+                    EmailAddress = "mm@test.test"
+                },
+                new User
+                {
+                    UserId = 3,
+                    FirstName = "Lilly",
+                    LastName = "Alan",
+                    EmailAddress = "lila@test.test"
+                });
+
+            modelBuilder.Entity<BeTask>().HasData(
+                new BeTask
+                {
+                    BeTaskId = 1,
+                    Name = "Mockup Task",
+                    Description = "This is just a mockup task.",
+                    Status = Models.Enums.BeTaskStatus.ToDo,
+                    Type = Models.Enums.BeTaskType.Feature,
+                    DueDate = new DateTime(2025, 7, 14, 14, 30, 0),
+                    NextActionDate = new DateTime(2025, 7, 15, 14, 30, 0),
+                    CreatedOn = new DateTime(2025, 7, 10, 14, 30, 0)
+                });
         }
     }
 }

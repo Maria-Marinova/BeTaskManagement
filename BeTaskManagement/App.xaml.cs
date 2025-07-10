@@ -2,6 +2,7 @@
 using BeTaskManagement.ViewModels;
 using BeTaskManagement.Views;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
@@ -15,13 +16,19 @@ namespace BeTaskManagement
     public partial class App : Application
     {
         public static IServiceProvider ServiceProvider { get; private set; }
+        public static IConfiguration Configuration { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
             var services = new ServiceCollection();
 
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer("Data Source=MARIA;Initial Catalog=mmdb_3;Integrated Security=True;Pooling=False;Encrypt=False;Trust Server Certificate=True"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
 
@@ -31,12 +38,10 @@ namespace BeTaskManagement
 
             ServiceProvider = services.BuildServiceProvider();
 
-            //var mainWindow = new CommentView();
-            //var mainWindow = new BeTaskView();
-            var mainWindow = new MainWindow();
-            //mainWindow.DataContext = ServiceProvider.GetRequiredService<CommentViewModel>();
-            //mainWindow.DataContext = ServiceProvider.GetRequiredService<BeTaskViewModel>();
-            mainWindow.DataContext = ServiceProvider.GetRequiredService<MainWindowViewModel>();
+            var mainWindow = new MainWindow
+            {
+                DataContext = ServiceProvider.GetRequiredService<MainWindowViewModel>()
+            };
             mainWindow.Show();
         }
     }
