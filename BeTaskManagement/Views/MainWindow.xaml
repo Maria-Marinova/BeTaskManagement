@@ -97,7 +97,7 @@
         <!-- Task Details Panel-->
         <Rectangle Fill="{StaticResource BackgrountLighterGrey}" 
                    Grid.Column="2"/>
-        <TextBlock Text="{Binding IsTaskSelected}" />
+        
         <Grid Grid.Column="2"  DataContext="{Binding SelectedTask, Mode=TwoWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="250"/>
@@ -120,7 +120,17 @@
                            Style="{StaticResource Title}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
-                
+
+                <TextBlock Grid.Row="0"
+                           Text="{Binding NextActionDate, StringFormat='Next Action Date: {0:dd.MM.yyyy}'}"
+                           Background="{StaticResource NextAcctionDateColor}"
+                           Padding="30 3"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Foreground="White"/>
+
                 <!--Task Type Badge-->
                 <Border HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -149,7 +159,7 @@
                 
                 <!--Task additional information-->
                 <TextBlock Grid.Row="2"
-                           Text="{Binding DueDate, StringFormat='{}{0:dd/MM/yyyy}'}"
+                           Text="{Binding DueDate, StringFormat='Due date: {0:dd/MM/yyyy}'}"
                            Background="{StaticResource MainThemeColor}"
                            Padding="30 3"
                            VerticalAlignment="Center"
@@ -165,7 +175,7 @@
                         VerticalAlignment="Center"
                         Padding="20 3"
                         CornerRadius="3"
-                        Background="{StaticResource OnHoldColor}">
+                        Background="{StaticResource StatusColor}">
                     <TextBlock Text="{Binding Status}"
                         Foreground="{StaticResource DefaultText}"
                         FontSize="14"

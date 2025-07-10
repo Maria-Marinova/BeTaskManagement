@@ -16,9 +16,8 @@
     <SolidColorBrush x:Key="TypeBadgeColor" Color="#FFC169E4"/>
     
     <!-- Task Status Colours-->
-    <SolidColorBrush x:Key="ToDoColor" Color="#FFAEE1E2"/>
-    <SolidColorBrush x:Key="InProgressColor" Color="#FF153FC1"/>
-    <SolidColorBrush x:Key="CompletedColor" Color="#FF5FB327"/>
-    <SolidColorBrush x:Key="BlockedColor" Color="#FFE01010"/>
-    <SolidColorBrush x:Key="OnHoldColor" Color="#FFE08908"/>
+    <SolidColorBrush x:Key="StatusColor" Color="#FFE08908"/>
+
+    <SolidColorBrush x:Key="NextAcctionDateColor" Color="#FF5CCEB7"/>
+
 </ResourceDictionary>
